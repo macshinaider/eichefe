@@ -19,24 +19,24 @@ services:
       restart_policy:
         condition: on-failure
 
-  minio:
-    image: minio/minio
-    volumes:
-      - ./Docker/minio:/data
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    command: server /data
-    environment:
-      MINIO_ACCESS_KEY: eichefe
-      MINIO_SECRET_KEY: luuhsantanafs
-    networks:
-      - eicheferede
-    deploy:
-      mode: replicated
-      replicas: 2
-      restart_policy:
-        condition: on-failure
+  # minio:
+  #   image: minio/minio
+  #   volumes:
+  #     - ./Docker/minio:/data
+  #   ports:
+  #     - "9000:9000"
+  #     - "9001:9001"
+  #   command: server /data
+  #   environment:
+  #     MINIO_ACCESS_KEY: eichefe
+  #     MINIO_SECRET_KEY: luuhsantanafs
+  #   networks:
+  #     - eicheferede
+  #   deploy:
+  #     mode: replicated
+  #     replicas: 2
+  #     restart_policy:
+  #       condition: on-failure
 
   lareanapizap:
     image: luuhsantanafs/lareanapizap:1.0
