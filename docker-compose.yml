@@ -1,0 +1,75 @@
+version: "3.1"
+
+services:
+  # traefik:
+  #   image: traefik:v2.0
+  #   command:
+  #     - "--api.insecure=true"
+  #     - "--providers.docker=true"
+  #     - "--providers.docker.exposedbydefault=false"
+  #     - "--entrypoints.web.address=:80"
+  #     - "--entrypoints.websecure.address=:443"
+  #     - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+  #     - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+  #     - "--certificatesresolvers.myresolver.acme.email=lucasadd15@gmail.com"
+  #     - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #     - "8080:8080"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - ./letsencrypt:/letsencrypt
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: eichefe
+      POSTGRES_PASSWORD: Lucas102030
+    volumes:
+      - ./Docker/db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - eicheferede
+
+  # minio:
+  #   image: minio/minio
+  #   volumes:
+  #     - ./Docker/minio:/data
+  #   ports:
+  #     - "9000:9000"
+  #     - "9001:9001"
+  #   command: server /data
+  #   environment:
+  #     MINIO_ACCESS_KEY: eichefe
+  #     MINIO_SECRET_KEY: luuhsantanafs
+  #   networks:
+  #     - eicheferede
+
+  lareanapizap:
+    image: luuhsantanafs/lareanapizap:1.0
+    volumes:
+      - ./Docker/apiwhatsapp/instancia:/evolution/instances
+      - ./Docker/apiwhatsapp/store:/evolution/store
+    ports:
+      - "8080:8080"
+    networks:
+      - eicheferede
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - ./Docker/rabbitmq/data:/var/lib/rabbitmq
+    networks:
+      - eicheferede
+    environment:
+      - RABBITMQ_DEFAULT_USER=luuhsantanafs
+      - RABBITMQ_DEFAULT_PASS=Lucas102030
+
+networks:
+  eicheferede:
+    driver: bridge
