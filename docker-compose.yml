@@ -6,9 +6,7 @@ services:
     image: postgres
     environment:
       POSTGRES_USER: eichefe
-      POSTGRES_PASSWORD: Lucas102030
-    volumes:
-      - ./Docker/db:/var/lib/postgresql/data
+      POSTGRES_PASSWORD: Lucas102030    
     ports:
       - 5432:5432
     networks:
@@ -20,9 +18,7 @@ services:
         condition: on-failure
 
   # minio:
-  #   image: minio/minio
-  #   volumes:
-  #     - ./Docker/minio:/data
+  #   image: minio/minio  
   #   ports:
   #     - "9000:9000"
   #     - "9001:9001"
@@ -39,10 +35,7 @@ services:
   #       condition: on-failure
 
   lareanapizap:
-    image: luuhsantanafs/lareanapizap:1.0
-    volumes:
-      - ./Docker/apiwhatsapp/instancia:/evolution/instances
-      - ./Docker/apiwhatsapp/store:/evolution/store
+    image: luuhsantanafs/lareanapizap:1.0    
     ports:
       - "8080:8080"
     networks:
@@ -57,9 +50,7 @@ services:
     image: rabbitmq:3-management
     ports:
       - "15672:15672"
-      - "5672:5672"
-    volumes:
-      - ./Docker/rabbitmq/data:/var/lib/rabbitmq
+      - "5672:5672"    
     networks:
       - eicheferede
     environment:
