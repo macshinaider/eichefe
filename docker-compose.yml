@@ -2,21 +2,21 @@ version: "3.7"
 
 services:
 
-  db:
-    image: postgres
-    environment:
-      POSTGRES_USER: eichefe
-      POSTGRES_PASSWORD: Lucas102030
-      POSTGRES_DB: eichefedb   
-    ports:
-      - 5432:5432
-    networks:
-      - eicheferede
-    deploy:
-      mode: replicated
-      replicas: 2
-      restart_policy:
-        condition: on-failure
+  # db:
+  #   image: postgres
+  #   environment:
+  #     POSTGRES_USER: eichefe
+  #     POSTGRES_PASSWORD: Lucas102030
+  #     POSTGRES_DB: eichefedb   
+  #   ports:
+  #     - 5432:5432
+  #   networks:
+  #     - eicheferede
+  #   deploy:
+  #     mode: replicated
+  #     replicas: 2
+  #     restart_policy:
+  #       condition: on-failure
 
   # minio:
   #   image: minio/minio  
