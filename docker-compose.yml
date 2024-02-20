@@ -7,6 +7,8 @@ services:
       - "80:80"
       - "443:443"
       - "81:81"
+    volumes:
+      - hdeichefe:/
     deploy:
       placement:
         constraints:
@@ -22,6 +24,8 @@ services:
       - 5432:5432
     networks:
       - eicheferede
+    volumes:
+      - hdeichefe:/
     deploy:
       mode: replicated
       replicas: 2
@@ -39,6 +43,8 @@ services:
       MINIO_SECRET_KEY: luuhsantanafs
     networks:
       - eicheferede
+    volumes:
+      - hdeichefe:/
     deploy:
       mode: replicated
       replicas: 2
@@ -56,6 +62,8 @@ services:
       replicas: 2
       restart_policy:
         condition: on-failure
+    volumes:
+      - hdeichefe:/
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -72,7 +80,12 @@ services:
       replicas: 2
       restart_policy:
         condition: on-failure
+    volumes:
+      - hdeichefe:/
 
 networks:
   eicheferede:
     driver: overlay
+
+volumes:
+  hdeichefe:
