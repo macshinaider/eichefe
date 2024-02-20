@@ -1,12 +1,23 @@
 version: "3.7"
 
 services:
+  nginxpm:
+    image: "jc21/nginx-proxy-manager:latest"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "81:81"
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+
   db:
     image: postgres
     environment:
       POSTGRES_USER: eichefe
       POSTGRES_PASSWORD: Lucas102030
-      POSTGRES_DB: eichefedb   
+      POSTGRES_DB: eichefedb
     ports:
       - 5432:5432
     networks:
@@ -18,7 +29,7 @@ services:
         condition: on-failure
 
   minio:
-    image: minio/minio  
+    image: minio/minio
     ports:
       - "9002:9000"
       - "9001:9001"
@@ -33,11 +44,9 @@ services:
       replicas: 2
       restart_policy:
         condition: on-failure
-        
-      
 
   lareanapizap:
-    image: luuhsantanafs/lareanapizap:1.0    
+    image: luuhsantanafs/lareanapizap:1.0
     ports:
       - "8080:8080"
     networks:
@@ -52,7 +61,7 @@ services:
     image: rabbitmq:3-management
     ports:
       - "15672:15672"
-      - "5672:5672"    
+      - "5672:5672"
     networks:
       - eicheferede
     environment:
