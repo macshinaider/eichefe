@@ -8,7 +8,7 @@ services:
       - "443:443"
       - "81:81"
     volumes:
-      - hdeichefe:/
+      - hdeichefe:/data
     deploy:
       placement:
         constraints:
@@ -25,7 +25,7 @@ services:
     networks:
       - eicheferede
     volumes:
-      - hdeichefe:/
+      - hdeichefe:/data
     deploy:
       mode: replicated
       replicas: 1
@@ -44,7 +44,7 @@ services:
     networks:
       - eicheferede
     volumes:
-      - hdeichefe:/
+      - hdeichefe:/data
     deploy:
       mode: replicated
       replicas: 1
@@ -63,7 +63,7 @@ services:
       restart_policy:
         condition: on-failure
     volumes:
-      - hdeichefe:/
+      - hdeichefe:/data
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -81,11 +81,12 @@ services:
       restart_policy:
         condition: on-failure
     volumes:
-      - hdeichefe:/
+      - hdeichefe:/data
 
 networks:
   eicheferede:
     driver: overlay
+    attachable: true
 
 volumes:
   hdeichefe:
