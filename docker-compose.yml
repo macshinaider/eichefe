@@ -1,39 +1,40 @@
 version: "3.7"
 
 services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: eichefe
+      POSTGRES_PASSWORD: Lucas102030
+      POSTGRES_DB: eichefedb   
+    ports:
+      - 5432:5432
+    networks:
+      - eicheferede
+    deploy:
+      mode: replicated
+      replicas: 2
+      restart_policy:
+        condition: on-failure
 
-  # db:
-  #   image: postgres
-  #   environment:
-  #     POSTGRES_USER: eichefe
-  #     POSTGRES_PASSWORD: Lucas102030
-  #     POSTGRES_DB: eichefedb   
-  #   ports:
-  #     - 5432:5432
-  #   networks:
-  #     - eicheferede
-  #   deploy:
-  #     mode: replicated
-  #     replicas: 2
-  #     restart_policy:
-  #       condition: on-failure
-
-  # minio:
-  #   image: minio/minio  
-  #   ports:
-  #     - "9000:9000"
-  #     - "9001:9001"
-  #   command: server /data
-  #   environment:
-  #     MINIO_ACCESS_KEY: eichefe
-  #     MINIO_SECRET_KEY: luuhsantanafs
-  #   networks:
-  #     - eicheferede
-  #   deploy:
-  #     mode: replicated
-  #     replicas: 2
-  #     restart_policy:
-  #       condition: on-failure
+  minio:
+    image: minio/minio  
+    ports:
+      - "9002:9000"
+      - "9001:9001"
+    command: server /data
+    environment:
+      MINIO_ACCESS_KEY: eichefe
+      MINIO_SECRET_KEY: luuhsantanafs
+    networks:
+      - eicheferede
+    deploy:
+      mode: replicated
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+        
+      
 
   lareanapizap:
     image: luuhsantanafs/lareanapizap:1.0    
