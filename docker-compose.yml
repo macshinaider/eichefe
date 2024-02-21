@@ -12,7 +12,7 @@ services:
     networks:
       - eicheferede
     volumes:
-      - hdeichefe:/data
+      - eichefe:/data
     deploy:
       mode: replicated
       replicas: 1
@@ -31,7 +31,7 @@ services:
     networks:
       - eicheferede
     volumes:
-      - hdeichefe:/data
+      - eichefe:/data
     deploy:
       mode: replicated
       replicas: 1
@@ -50,7 +50,7 @@ services:
       restart_policy:
         condition: on-failure
     volumes:
-      - hdeichefe:/data
+      - eichefe:/data
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -68,7 +68,7 @@ services:
       restart_policy:
         condition: on-failure
     volumes:
-      - hdeichefe:/data
+      - eichefe:/data
 
 networks:
   eicheferede:
@@ -76,4 +76,4 @@ networks:
     attachable: true
 
 volumes:
-  hdeichefe:
+  eichefe:
