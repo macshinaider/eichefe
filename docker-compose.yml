@@ -19,6 +19,16 @@ services:
       restart_policy:
         condition: on-failure
 
+
+  nfs-server:
+    image: itsthenetwork/nfs-server-alpine:latest
+    volumes:
+      - nfs-data:/nfsshare
+    environment:
+      - SHARED_DIRECTORY=/nfsshare
+    networks:
+      - eicheferede
+
   minio:
     image: minio/minio
     ports:
@@ -80,5 +90,5 @@ volumes:
     driver: local
     driver_opts:
       type: "nfs"
-      o: "addr=192.168.1.74,nolock,soft,rw"
-      device: ":/root/volumenfs"
+      o: addr=nfs-server,nolock,soft,rw
+      device: ":/nfsshare"
