@@ -37,6 +37,8 @@ services:
       replicas: 1
       restart_policy:
         condition: on-failure
+    depends_on:
+      - db
 
   lareanapizap:
     image: luuhsantanafs/lareanapizap:1.0
@@ -51,6 +53,9 @@ services:
         condition: on-failure
     volumes:
       - eichefe:/app
+    depends_on:
+      - db
+      - minio
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -69,6 +74,10 @@ services:
         condition: on-failure
     volumes:
       - eichefe:/var/lib/rabbitmq
+    depends_on:
+      - db
+      - minio
+      - lareanapizap
 
 networks:
   eicheferede:
