@@ -12,7 +12,7 @@ services:
     networks:
       - eicheferede
     volumes:
-      - eichefe:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data
     deploy:
       mode: replicated
       replicas: 1
@@ -31,7 +31,7 @@ services:
     networks:
       - eicheferede
     volumes:
-      - eichefe:/data
+      - minio_data:/data
     deploy:
       mode: replicated
       replicas: 1
@@ -52,7 +52,7 @@ services:
       restart_policy:
         condition: on-failure
     volumes:
-      - eichefe:/app
+      - apizap_data:/app
     depends_on:
       - db
       - minio
@@ -73,7 +73,7 @@ services:
       restart_policy:
         condition: on-failure
     volumes:
-      - eichefe:/var/lib/rabbitmq
+      - rabbitmq_data:/var/lib/rabbitmq
     depends_on:
       - db
       - minio
@@ -85,9 +85,29 @@ networks:
     attachable: true
 
 volumes:
-  eichefe:
+  minio_data:
     driver: local
     driver_opts:
       type: nfs
       o: addr=192.168.1.71,nfsvers=4,rw,noatime,rsize=8192,wsize=8192,tcp,timeo=14
       device: :/mnt/volumenfs
+  db_data:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=192.168.1.71,nfsvers=4,rw,noatime,rsize=8192,wsize=8192,tcp,timeo=14
+      device: :/mnt/volumenfs
+  apizap_data:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=192.168.1.71,nfsvers=4,rw,noatime,rsize=8192,wsize=8192,tcp,timeo=14
+      device: :/mnt/volumenfs
+  rabbitmq_data:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=192.168.1.71,nfsvers=4,rw,noatime,rsize=8192,wsize=8192,tcp,timeo=14
+      device: :/mnt/volumenfs
+    
+    
