@@ -90,4 +90,4 @@ volumes:
     driver_opts:
       type: nfs
       o: addr=192.168.1.71,nfsvers=4,rw,intr,noatime,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=192.168.1.71
-      device: :/mnt/nfs/vol1
+      device: :/mnt/nfs/volumenfs
