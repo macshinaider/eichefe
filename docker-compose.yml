@@ -90,24 +90,24 @@ volumes:
     driver_opts:
       type: nfs
       o: addr=192.168.1.71,nfsvers=4,rw,noatime,rsize=8192,wsize=8192,tcp,timeo=14
-      device: :/mnt/volumenfs
+      device: :/mnt/volumenfs/minio
   db_data:
     driver: local
     driver_opts:
       type: nfs
       o: addr=192.168.1.71,nfsvers=4,rw,noatime,rsize=8192,wsize=8192,tcp,timeo=14
-      device: :/mnt/volumenfs
+      device: :/mnt/volumenfs/db
   apizap_data:
     driver: local
     driver_opts:
       type: nfs
       o: addr=192.168.1.71,nfsvers=4,rw,noatime,rsize=8192,wsize=8192,tcp,timeo=14
-      device: :/mnt/volumenfs
+      device: :/mnt/volumenfs/apizap
   rabbitmq_data:
     driver: local
     driver_opts:
       type: nfs
       o: addr=192.168.1.71,nfsvers=4,rw,noatime,rsize=8192,wsize=8192,tcp,timeo=14
-      device: :/mnt/volumenfs
+      device: :/mnt/volumenfs/rabbitmq
     
     
