@@ -5,10 +5,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CgEyeAlt } from "react-icons/cg";
 import { useState } from "react";
 import Link from "next/link";
+import Cookie from "js-cookie"
+
+import { toast } from "react-toastify";
+import api from "@/lib/axios";
+import { useRouter } from "next/navigation";
+import { UserFindId } from "../api/user/find/fetch";
 
 const schema = z.object({
   email: z.string().email(),
-  senha: z.string().min(8).max(255),
+  password: z.string().min(8).max(255),
 });
 
 type CreateUserFormData = z.infer<typeof schema>;
@@ -22,14 +28,39 @@ const Login = () => {
     resolver: zodResolver(schema),
   });
 
+  const router = useRouter()
+
+  async function SinginF(data: any) {
+    const res = await api.post("/api/user/signin", data);
+    return res.data;
+  }
+
   const [showPassword, setShowPassword] = useState(false); // State for password visibility
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const onSubmit = (data: CreateUserFormData) => {
-    console.log(data);
+  const onSubmit = async (data: CreateUserFormData) => {
+    try {
+      const res = await SinginF(data);
+      console.log(res);
+      if (res) {
+        toast.success("Usuário criado com sucesso!");
+        setTimeout(() => {
+          Cookie.set("token", res.token)
+          const iduser = UserFindId(data.email)
+
+          router.push("/userkey")
+        }, 2000);
+      }
+      
+    } catch (error) {
+      console.log(error)
+      toast.error("email ou senha invalidos")
+      
+    }
+    
   };
 
   return (
@@ -52,7 +83,7 @@ const Login = () => {
           <div className="flex items-center">
             <input
               type={showPassword ? "text" : "password"}
-              {...register("senha", { required: true })}
+              {...register("password", { required: true })}
               className="border border-zinc-600 shadow-sm rounded h-10 px-3 bg-zinc-800 text-white flex-grow"
             />
             <CgEyeAlt
@@ -60,7 +91,7 @@ const Login = () => {
               onClick={togglePasswordVisibility}
             />
           </div>
-          {errors.senha && <p>{errors.senha.message}</p>}
+          {errors.password && <p>{errors.password.message}</p>}
         </div>
         <button
           type="submit"

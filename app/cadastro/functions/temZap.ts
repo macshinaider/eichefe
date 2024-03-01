@@ -7,7 +7,7 @@ export async function TemZap(whats: string) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        apikey: "euamodeus",
+        apikey: "euamojesus102030",
       },
       body: JSON.stringify(data),
     };
@@ -15,7 +15,6 @@ export async function TemZap(whats: string) {
       `http://localhost:8080/chat/whatsappNumbers/eichefe`,
       options
     );
-    
 
     if (verificar.status === 201) {
       return true;

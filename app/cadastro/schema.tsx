@@ -9,6 +9,7 @@ export const CadastrosSchema = z
     email: z.string().email(),
     password: z.string().min(8),
     passwordretry: z.string(),
+    cpfcnpj: z.string().min(8,"Dados Incorretos"),
     whatsapp: z.string().refine(async (res) => TemZap(res), {
       message: "Numero de Whatsapp Invalido",
     }),
