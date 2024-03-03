@@ -1,11 +1,11 @@
 import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<Response | void> {
   const data = await req.json();
 
   if (!data.email) {
-    return false;
+    return Response.json({ message: "nao existe" }, { status: 400 });
   }
   if (data.email) {
     const res = await prisma.user.findUnique({

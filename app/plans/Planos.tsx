@@ -1,7 +1,7 @@
 "use client";
 import api from "@/lib/axios";
 import { QueryClient } from "@tanstack/react-query";
-import { Planos } from "./page";
+
 
 export const queryClient = new QueryClient();
 
