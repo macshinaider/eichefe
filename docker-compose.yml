@@ -77,7 +77,7 @@ services:
 
 networks:
   eicheferede:
-    driver: overla
+    driver: overlay
     external: true
 
 
@@ -85,6 +85,4 @@ volumes:
   eichefevolume:
      driver: local
 
-networks:
-  eicheferede:
-    driver: overlay
+
