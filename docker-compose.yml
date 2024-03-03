@@ -19,8 +19,8 @@ services:
       timeout: 5s
       retries: 3
 
-  lareanapizap:
-    image: luuhsantanafs/lareanapizap:1.0
+  eichefeapizap:
+    image: luuhsantanafs/eichefeapizap:1.0
     ports:
       - "8080:8080"
     networks:
