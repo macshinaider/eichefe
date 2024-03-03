@@ -29,21 +29,7 @@ services:
       - eichefevolume:/app
     depends_on:
       - db      
-    healthcheck:
-      test:
-        [
-          "CMD",
-          "curl",
-          "-s",
-          "-o",
-          "/dev/null",
-          "-w",
-          "%{http_code}",
-          "http://localhost:8080",
-        ]
-      interval: 10s
-      timeout: 5s
-      retries: 3
+    
 
   rabbitmq:
     image: rabbitmq:3-management    
