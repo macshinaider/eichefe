@@ -8,34 +8,48 @@ services:
       POSTGRES_PASSWORD: Lucas102030
       POSTGRES_DB: eichefedb
     ports:
-      - 5432:5432
+      - target: 5432
+        published: 5432
+        protocol: tcp
+        mode: host
     networks:
       - eicheferede
     volumes:
       - eichefevolume:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "eichefe", "-d", "eichefedb"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
 
   eichefeapizap:
     image: luuhsantanafs/eichefeapizap:1.0
     ports:
-      - "8080:8080"
+      - target: 8080
+        published: 8080
+        protocol: tcp
+        mode: host
     networks:
       - eicheferede
     volumes:
       - eichefevolume:/app
     depends_on:
-      - db      
-    
+      - db
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
 
   rabbitmq:
     image: rabbitmq:3-management    
     ports:
-      - "15672:15672"
-      - "5672:5672"
+      - target: 15672
+        published: 15672
+        protocol: tcp
+        mode: host
+      - target: 5672
+        published: 5672
+        protocol: tcp
+        mode: host
     networks:
       - eicheferede
     environment:
@@ -46,17 +60,20 @@ services:
     depends_on:
       - db
       - lareanapizap
-    healthcheck:
-      test: ["CMD", "rabbitmqctl", "status"]
-      interval: 10s
-      timeout: 5s
-      retries: 3  
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
 
   cloudflared:
     image: cloudflare/cloudflared:latest
     command: tunnel --no-autoupdate run --token eyJhIjoiNzQyYzVkYTA5YjE2N2E4ZGU5OWMyZmI3ZjVjYzBkMDgiLCJ0IjoiMzFiNGIyOGItZGM3Ny00NmU1LWE1ZGQtNjAyYTM3MmZjN2ZjIiwicyI6IllXUXdZVEZpTlRRdFpUa3lNUzAwWkRnd0xUaG1Zamd0T1RReE5UWmxZelV4TlRVNCJ9
     networks:
       - eicheferede
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
 
 volumes:
   eichefevolume:
