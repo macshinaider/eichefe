@@ -3,7 +3,6 @@ version: "3.7"
 services:
   db:
     image: postgres
-    
     environment:
       POSTGRES_USER: eichefe
       POSTGRES_PASSWORD: Lucas102030
@@ -13,44 +12,21 @@ services:
     networks:
       - eicheferede
     volumes:
-      - ./.docker/db_data:/var/lib/postgresql/data
+      - eichefevolume:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "eichefe", "-d", "eichefedb"]
       interval: 10s
       timeout: 5s
       retries: 3
 
-  # minio:
-  #   image: minio/minio
-    
-  #   ports:
-  #     - "9002:9000"
-  #     - "9001:9001"
-  #   command: server /data
-  #   environment:
-  #     MINIO_ACCESS_KEY: eichefe
-  #     MINIO_SECRET_KEY: luuhsantanafs
-  #   networks:
-  #     - eicheferede
-  #   volumes:
-  #     - ./.docker/minio_data:/data
-  #   healthcheck:
-  #     test: ["CMD", "sh", "-c", "nc -z localhost 9000"]
-  #     interval: 10s
-  #     timeout: 5s
-  #     retries: 3
-  #   depends_on:
-  #     - db
-
   lareanapizap:
     image: luuhsantanafs/lareanapizap:1.0
-    
     ports:
       - "8080:8080"
     networks:
       - eicheferede
     volumes:
-      - ./.docker/apizap_data:/app
+      - eichefevolume:/app
     depends_on:
       - db      
     healthcheck:
@@ -80,10 +56,9 @@ services:
       - RABBITMQ_DEFAULT_USER=luuhsantanafs
       - RABBITMQ_DEFAULT_PASS=Lucas102030
     volumes:
-      - ./.docker/rabbitmq_data:/var/lib/rabbitmq
+      - eichefevolume:/var/lib/rabbitmq
     depends_on:
       - db
-      - minio
       - lareanapizap
     healthcheck:
       test: ["CMD", "rabbitmqctl", "status"]
@@ -97,9 +72,10 @@ services:
     networks:
       - eicheferede
 
-  
+volumes:
+  eichefevolume:
+     driver: local
 
 networks:
   eicheferede:
     driver: overlay
-
