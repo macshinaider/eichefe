@@ -103,5 +103,5 @@ services:
 
 networks:
   eicheferede:
-    driver: host
+    driver: overlay
 
