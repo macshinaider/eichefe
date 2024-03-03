@@ -3,7 +3,7 @@ version: "3.7"
 services:
   db:
     image: postgres
-    restart: always
+    
     environment:
       POSTGRES_USER: eichefe
       POSTGRES_PASSWORD: Lucas102030
@@ -22,7 +22,7 @@ services:
 
   minio:
     image: minio/minio
-    restart: always
+    
     ports:
       - "9002:9000"
       - "9001:9001"
@@ -44,7 +44,7 @@ services:
 
   lareanapizap:
     image: luuhsantanafs/lareanapizap:1.0
-    restart: always
+    
     ports:
       - "8080:8080"
     networks:
@@ -71,8 +71,7 @@ services:
       retries: 3
 
   rabbitmq:
-    image: rabbitmq:3-management
-    restart: always
+    image: rabbitmq:3-management    
     ports:
       - "15672:15672"
       - "5672:5672"
