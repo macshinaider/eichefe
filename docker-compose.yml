@@ -20,27 +20,27 @@ services:
       timeout: 5s
       retries: 3
 
-  minio:
-    image: minio/minio
+  # minio:
+  #   image: minio/minio
     
-    ports:
-      - "9002:9000"
-      - "9001:9001"
-    command: server /data
-    environment:
-      MINIO_ACCESS_KEY: eichefe
-      MINIO_SECRET_KEY: luuhsantanafs
-    networks:
-      - eicheferede
-    volumes:
-      - ./.docker/minio_data:/data
-    healthcheck:
-      test: ["CMD", "sh", "-c", "nc -z localhost 9000"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-    depends_on:
-      - db
+  #   ports:
+  #     - "9002:9000"
+  #     - "9001:9001"
+  #   command: server /data
+  #   environment:
+  #     MINIO_ACCESS_KEY: eichefe
+  #     MINIO_SECRET_KEY: luuhsantanafs
+  #   networks:
+  #     - eicheferede
+  #   volumes:
+  #     - ./.docker/minio_data:/data
+  #   healthcheck:
+  #     test: ["CMD", "sh", "-c", "nc -z localhost 9000"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 3
+  #   depends_on:
+  #     - db
 
   lareanapizap:
     image: luuhsantanafs/lareanapizap:1.0
@@ -52,8 +52,7 @@ services:
     volumes:
       - ./.docker/apizap_data:/app
     depends_on:
-      - db
-      - minio
+      - db      
     healthcheck:
       test:
         [
