@@ -92,10 +92,16 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3  
-  
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run --token eyJhIjoiNzQyYzVkYTA5YjE2N2E4ZGU5OWMyZmI3ZjVjYzBkMDgiLCJ0IjoiMzFiNGIyOGItZGM3Ny00NmU1LWE1ZGQtNjAyYTM3MmZjN2ZjIiwicyI6IllXUXdZVEZpTlRRdFpUa3lNUzAwWkRnd0xUaG1Zamd0T1RReE5UWmxZelV4TlRVNCJ9
+    networks:
+      - eicheferede
 
   
 
 networks:
   eicheferede:
     driver: bridge
+
