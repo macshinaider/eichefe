@@ -5,10 +5,19 @@ services:
       build:
         context: .
         dockerfile: Dockerfile
-        
-       
-    
-   
+      ports:
+        - target: 3000
+          published: 3000
+          protocol: http
+          mode: host
+      networks:
+      - eicheferede
+      volumes:
+        - eichefevolume:/app
+      deploy:
+        replicas: 1
+        restart_policy:
+          condition: on-failure 
     
 
   db:

@@ -1,5 +1,4 @@
-FROM node:18.19.0
-
+FROM node:18.19.1
 
 WORKDIR /app
 
@@ -9,3 +8,8 @@ RUN npm i
 
 COPY . .
 
+RUN npm run build
+
+EXPOSE 3000
+
+CMD [ "npm", "run", "start" ]
