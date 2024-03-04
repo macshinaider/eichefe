@@ -20,15 +20,15 @@ services:
     env_file:
       - .env
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`larean.com.br`)" ## Dominio da aplicação
-      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
-      - "traefik.http.routers.frontend.tls.certresolver=letsencryptresolver"
-      - "traefik.http.routers.frontend.service=frontend"
-      - "traefik.docker.network=lareanrede" ## Nome da rede interna
-      - "traefik.http.routers.frontend.entrypoints=websecure"
-      - "traefik.http.routers.frontend.priority=1"
-
+        - "traefik.enable=true"
+        - "traefik.http.routers.frontend.rule=Host(`larean.com.br`)" ## Dominio da aplicação
+        - "traefik.http.services.frontend.loadbalancer.server.port=3000"
+        - "traefik.http.routers.frontend.tls.certresolver=letsencryptresolver"
+        - "traefik.http.routers.frontend.service=frontend"
+        - "traefik.docker.network=lareanrede" ## Nome da rede interna
+        - "traefik.http.routers.frontend.entrypoints=websecure"
+        - "traefik.http.routers.frontend.priority=1"
+     
   db:
     image: postgres
     environment:
@@ -50,14 +50,7 @@ services:
       restart_policy:
         condition: on-failure
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.db.rule=Host(`db.larean.com.br`)"
-      - "traefik.http.routers.db.entrypoints=web"
-      - "traefik.http.routers.db.service=db"
-      - "traefik.http.routers.db.tls.certresolver=letsencryptresolver"
-      - "traefik.http.services.db.loadbalancer.server.port=5432"
-      - "traefik.docker.network=lareanrede"
-      - "traefik.http.routers.frontend.entrypoints=websecure"
+     
 
   eichefeapizap:
     image: luuhsantanafs/eichefeapizap:1.0
@@ -78,14 +71,7 @@ services:
       restart_policy:
         condition: on-failure
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.eichefeapizap.rule=Host(`apizap.larean.com.br`)"
-      - "traefik.http.routers.eichefeapizap.entrypoints=web"
-      - "traefik.http.routers.eichefeapizap.service=eichefeapizap"
-      - "traefik.http.routers.eichefeapizap.tls.certresolver=letsencryptresolver"
-      - "traefik.http.services.eichefeapizap.loadbalancer.server.port=8080"
-      - "traefik.docker.network=lareanrede"
-      - "traefik.http.routers.frontend.entrypoints=websecure"
+     
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -114,22 +100,16 @@ services:
       restart_policy:
         condition: on-failure
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.rabbitmq.rule=Host(`rabbitmq.larean.com.br`)"
-      - "traefik.http.routers.rabbitmq.entrypoints=web"
-      - "traefik.http.routers.rabbitmq.service=rabbitmq"
-      - "traefik.http.routers.rabbitmq.tls.certresolver=letsencryptresolver"
-      - "traefik.http.services.rabbitmq.loadbalancer.server.port=15672"
-      - "traefik.docker.network=lareanrede"
-      - "traefik.http.routers.frontend.entrypoints=websecure"
-
+      
 networks:
   eicheferede:
     driver: overlay
     external: true
+    attachable: true
   lareanrede:
     driver: overlay
     external: true
+    attachable: true
 
 volumes:
   eichefevolume:
