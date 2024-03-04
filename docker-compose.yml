@@ -78,7 +78,7 @@ services:
       - eichefevolume:/var/lib/rabbitmq
     depends_on:
       - db
-      - lareanapizap
+      - eichefeapizap  
     deploy:
       replicas: 1
       restart_policy:
