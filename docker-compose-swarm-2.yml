@@ -10,6 +10,7 @@ services:
           mode: host
       networks:
       - eicheferede
+      - lareanrede
       volumes:
         - eichefevolume:/app
       deploy:
@@ -43,6 +44,7 @@ services:
         mode: host
     networks:
       - eicheferede
+      - lareanrede
     volumes:
       - eichefevolume:/var/lib/postgresql/data
     deploy:
@@ -68,6 +70,7 @@ services:
         mode: host
     networks:
       - eicheferede
+      -	lareanrede
     volumes:
       - eichefevolume:/app
     depends_on:
@@ -99,6 +102,7 @@ services:
         mode: host
     networks:
       - eicheferede
+      -	lareanrede
     environment:
       - RABBITMQ_DEFAULT_USER=luuhsantanafs
       - RABBITMQ_DEFAULT_PASS=Lucas102030
@@ -126,6 +130,10 @@ networks:
   eicheferede:
     driver: overlay
     external: true
+  lareanrede:
+    driver: overlay
+    external: true
+    
 
 
 volumes:
