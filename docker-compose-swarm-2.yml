@@ -1,35 +1,33 @@
 version: "3.8"
 
 services:
-  frontend:    
-      image: luuhsantanafs/eichefeapp:1.0
-      ports:
-        - target: 3000
-          published: 3000
-          protocol: http
-          mode: host
-      networks:
+  frontend:
+    image: luuhsantanafs/eichefeapp:1.0
+    ports:
+      - target: 3000
+        published: 3000
+        protocol: http
+        mode: host
+    networks:
       - eicheferede
       - lareanrede
-      volumes:
-        - eichefevolume:/app
-      deploy:
-        replicas: 1
-        restart_policy:
-          condition: on-failure 
-      env_file:
-        - .env
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.frontend.rule=Host(`larean.com.br`)" ## Dominio da aplicação
-        - "traefik.http.services.frontend.loadbalancer.server.port=3000"
-        - "traefik.http.routers.frontend.tls.certresolver=letsencryptresolver"
-        - "traefik.http.routers.frontend.service=frontend"
-        - "traefik.docker.network=lareanrede" ## Nome da rede interna
-        - "traefik.http.routers.frontend.entrypoints=websecure"
-        - "traefik.http.routers.frontend.priority=1"
-
-    
+    volumes:
+      - eichefevolume:/app
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    env_file:
+      - .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`larean.com.br`)" ## Dominio da aplicação
+      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
+      - "traefik.http.routers.frontend.tls.certresolver=letsencryptresolver"
+      - "traefik.http.routers.frontend.service=frontend"
+      - "traefik.docker.network=lareanrede" ## Nome da rede interna
+      - "traefik.http.routers.frontend.entrypoints=websecure"
+      - "traefik.http.routers.frontend.priority=1"
 
   db:
     image: postgres
@@ -70,7 +68,7 @@ services:
         mode: host
     networks:
       - eicheferede
-      -	lareanrede
+      - lareanrede
     volumes:
       - eichefevolume:/app
     depends_on:
@@ -90,7 +88,7 @@ services:
       - "traefik.http.routers.frontend.entrypoints=websecure"
 
   rabbitmq:
-    image: rabbitmq:3-management    
+    image: rabbitmq:3-management
     ports:
       - target: 15672
         published: 15672
@@ -102,7 +100,7 @@ services:
         mode: host
     networks:
       - eicheferede
-      -	lareanrede
+      - lareanrede
     environment:
       - RABBITMQ_DEFAULT_USER=luuhsantanafs
       - RABBITMQ_DEFAULT_PASS=Lucas102030
@@ -110,7 +108,7 @@ services:
       - eichefevolume:/var/lib/rabbitmq
     depends_on:
       - db
-      - eichefeapizap  
+      - eichefeapizap
     deploy:
       replicas: 1
       restart_policy:
@@ -124,7 +122,6 @@ services:
       - "traefik.http.services.rabbitmq.loadbalancer.server.port=15672"
       - "traefik.docker.network=lareanrede"
       - "traefik.http.routers.frontend.entrypoints=websecure"
-  
 
 networks:
   eicheferede:
@@ -133,11 +130,7 @@ networks:
   lareanrede:
     driver: overlay
     external: true
-    
-
 
 volumes:
   eichefevolume:
-     driver: local
-
-
+    driver: local
