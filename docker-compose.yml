@@ -1,0 +1,79 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: eichefe
+      POSTGRES_PASSWORD: Lucas102030
+      POSTGRES_DB: eichefedb
+    ports:
+      - 5432:5432
+    networks:
+      - eicheferede
+    volumes:
+      - ./.Docker/db_data:/var/lib/postgresql/data
+
+  minio:
+    image: minio/minio
+    ports:
+      - "9002:9000"
+      - "9001:9001"
+    command: server /data
+    environment:
+      MINIO_ACCESS_KEY: eichefe
+      MINIO_SECRET_KEY: luuhsantanafs
+    networks:
+      - eicheferede
+    volumes:
+      - ./.Docker/minio_data:/data
+    depends_on:
+      - db
+
+  eichefeapizap:
+    image: luuhsantanafs/eichefeapizap:1.0
+    ports:
+      - target: 8080
+        published: 8080
+        protocol: tcp
+        mode: host
+    networks:
+      - eicheferede
+    volumes:
+      - ./.Docker/eichefevolume:/app
+    environment:
+      - PUID=1000
+      - PGID=1000
+    depends_on:
+      - db
+
+  rabbitmq:
+    image: rabbitmq:3-management    
+    ports:
+      - target: 15672
+        published: 15672
+        protocol: tcp
+        mode: host
+      - target: 5672
+        published: 5672
+        protocol: tcp
+        mode: host
+    networks:
+      - eicheferede
+    environment:
+      - RABBITMQ_DEFAULT_USER=luuhsantanafs
+      - RABBITMQ_DEFAULT_PASS=Lucas102030
+    volumes:
+      - ./.Docker/eichefevolume:/var/lib/rabbitmq
+    depends_on:
+      - db
+      - eichefeapizap
+
+
+networks:
+  eicheferede:
+   driver: bridge
+
+
+  
+    
