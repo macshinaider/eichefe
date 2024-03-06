@@ -4,9 +4,9 @@ import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
 import ProviderQuery from "@/lib/reactquery";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
-const inter = Rubik({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
