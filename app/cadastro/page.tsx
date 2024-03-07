@@ -76,6 +76,7 @@ const Cadastro = () => {
 
   function AutoComplit(value: string) {
     const data = CheckZipCode(value);
+    console.log("🚀 ~ AutoComplit ~ data:", data)
     return data;
   }
 

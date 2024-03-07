@@ -60,7 +60,7 @@ export default function UserKey({ params }: { params: { id: number } }) {
       );
       await delay(1000);
 
-      window.location.href = "/dashbord";
+      window.location.href = "/dashboard";
     } else {
       // Mostra uma mensagem de erro
       toast.error(
