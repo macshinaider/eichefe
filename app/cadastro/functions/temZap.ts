@@ -16,7 +16,7 @@ export async function TemZap(whats: string) {
       options
     );
 
-    if (verificar.status === 201) {
+    if (verificar.status === 200) {
       return true;
     } else {
       return false;

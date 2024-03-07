@@ -17,8 +17,6 @@ const Cadastro = () => {
     estado: "",
   });
 
-  
-
   useEffect(() => {}, [
     formData.bairro,
     formData.estado,
@@ -57,10 +55,9 @@ const Cadastro = () => {
       estado: addressData.uf,
     });
   };
-  const router = useRouter()
+  const router = useRouter();
 
   const HandleSubmit = async (data: CreateUserFormCadastro) => {
-    
     try {
       const response = await api.post("/api/user/create", data);
 

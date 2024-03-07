@@ -3,6 +3,7 @@ version: "3.7"
 services:
   db:
     image: postgres
+    restart: always
     environment:
       POSTGRES_USER: eichefe
       POSTGRES_PASSWORD: Lucas102030
@@ -12,10 +13,11 @@ services:
     networks:
       - eicheferede
     volumes:
-      - ./.Docker/db_data:/var/lib/postgresql/data
+      - ./.Docker/db_data/db:/var/lib/postgresql/data
 
   minio:
     image: minio/minio
+    restart: always
     ports:
       - "9002:9000"
       - "9001:9001"
@@ -26,29 +28,39 @@ services:
     networks:
       - eicheferede
     volumes:
-      - ./.Docker/minio_data:/data
+      - ./.Docker/minio_data/minio:/data
     depends_on:
       - db
 
-  eichefeapizap:
-    image: luuhsantanafs/eichefeapizap:1.0
+  apizap:
+    container_name: evolution_api
+    image: atendai/evolution-api:homolog    
+    restart: always
     ports:
-      - target: 8080
-        published: 8080
-        protocol: tcp
-        mode: host
+      - 8080:8080
+    volumes:
+      - ./.Docker/evolution_instances:/evolution/instances
+      - ./.Docker/evolution_store:/evolution/store
     networks:
       - eicheferede
-    volumes:
-      - ./.Docker/eichefevolume:/app
-    environment:
-      - PUID=1000
-      - PGID=1000
+    env_file:
+      - ./configDocker/.env      
+    command: ["node", "./dist/src/main.js"]
+    expose:
+      - 8080
     depends_on:
       - db
+      - mongodb
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:27017"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    
 
   rabbitmq:
-    image: rabbitmq:3-management    
+    image: rabbitmq:3-management
+    restart: always
     ports:
       - target: 15672
         published: 15672
@@ -64,16 +76,12 @@ services:
       - RABBITMQ_DEFAULT_USER=luuhsantanafs
       - RABBITMQ_DEFAULT_PASS=Lucas102030
     volumes:
-      - ./.Docker/eichefevolume:/var/lib/rabbitmq
+      - ./.Docker/eichefevolume/rabbitmq:/var/lib/rabbitmq
     depends_on:
-      - db
-      - eichefeapizap
+      - db      
 
+  
 
 networks:
   eicheferede:
-   driver: bridge
-
-
-  
-    
+    driver: bridge

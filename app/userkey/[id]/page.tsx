@@ -55,7 +55,9 @@ export default function UserKey({ params }: { params: { id: number } }) {
     if (values.join("") === code) {
       toast.success("Codigo Confirmado Com Sucesso");
       await delay(5000);
-      await api.post(`/api/whatsapp/reactionmsg?remotejid=${remotejid}&idmsg=${idmsg}`);
+      await api.post(
+        `/api/whatsapp/reactionmsg?remotejid=${remotejid}&idmsg=${idmsg}`
+      );
       await delay(1000);
 
       window.location.href = "/dashbord";
