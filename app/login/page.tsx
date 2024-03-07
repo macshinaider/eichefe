@@ -47,11 +47,11 @@ const Login = () => {
       console.log(res);
       if (res) {
         toast.success("Usuário criado com sucesso!");
-        setTimeout(() => {
+        setTimeout(async () => {
           Cookie.set("token", res.token)
-          const iduser = UserFindId(data.email)
+          const iduser = await UserFindId(data.email)         
 
-          router.push("/userkey")
+          router.push(`/userkey/${iduser.id}`)
         }, 2000);
       }
       

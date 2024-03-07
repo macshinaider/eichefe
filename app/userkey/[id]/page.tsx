@@ -2,10 +2,14 @@
 import { useState, useEffect, useRef } from "react";
 import "./input.css";
 import api from "@/lib/axios";
+import { toast } from "react-toastify";
+import { delay } from "@/lib/delay";
 
 export default function UserKey({ params }: { params: { id: number } }) {
   const [values, setValues] = useState(Array(6).fill(""));
   const [code, setCode] = useState("");
+  const [idmsg, setIdmsg] = useState("");
+  const [remotejid, setRemotejid] = useState("");
   const inputs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
@@ -18,6 +22,15 @@ export default function UserKey({ params }: { params: { id: number } }) {
 
   const GetCode = async () => {
     const res = await api.get("/api/utils/gerarcodigo");
+    const rescode = await api.get(
+      `/api/utils/sendcodewhats?id=${params.id}&code=${res.data.codigo}`
+    );
+
+    setIdmsg(rescode.data.send.key.id);
+    setRemotejid(rescode.data.send.key.remoteJid);
+    console.log(rescode.data.send.key.remoteJid);
+    console.log(rescode.data.send.key.id);
+
     setCode(res.data.codigo);
   };
 
@@ -38,22 +51,30 @@ export default function UserKey({ params }: { params: { id: number } }) {
     }
   };
 
-  const handleConfirmed = () => {
-    if (values.join('') === code) {
-      // Redireciona para outra página
-      window.location.href = "/outra-pagina";
+  const handleConfirmed = async () => {
+    if (values.join("") === code) {
+      toast.success("Codigo Confirmado Com Sucesso");
+      await delay(5000);
+      await api.post(`/api/whatsapp/reactionmsg?remotejid=${remotejid}&idmsg=${idmsg}`);
+      await delay(1000);
+
+      window.location.href = "/dashbord";
     } else {
       // Mostra uma mensagem de erro
-      alert("O código inserido não é válido. Por favor, tente novamente.");
+      toast.error(
+        "O código inserido não é válido. Por favor, tente novamente."
+      );
     }
-  }
+  };
 
   if (!code)
     return (
       <div className="h-screen flex flex-col justify-center items-center gap-5">
         <h1 className="mt-[-30%] text-3xl">Solicitar Codigo Por Whatsapp</h1>
-        <div className="flex bg-emerald-500 hover:bg-emerald-400 p-4 rounded">
-          <button onClick={GetCode}>Solicitar Codigo</button>
+        <div className="flex gap-4">
+          <div className="flex bg-emerald-500 hover:bg-emerald-400 p-4 rounded">
+            <button onClick={GetCode}>Solicitar Codigo</button>
+          </div>
         </div>
       </div>
     );
@@ -61,7 +82,7 @@ export default function UserKey({ params }: { params: { id: number } }) {
   if (code)
     return (
       <div className="h-screen flex flex-col justify-center items-center gap-5">
-        <h1 className="mt-[-30%] text-5xl">Authenticação</h1>
+        <h1 className="mt-[-30%] text-5xl">Autenticação</h1>
         <div className="flex gap-2">
           {values.map((value, i) => (
             <input
@@ -75,10 +96,20 @@ export default function UserKey({ params }: { params: { id: number } }) {
             />
           ))}
         </div>
-        <div className="flex bg-emerald-500 hover:bg-emerald-400 h-10 w-48 cursor-pointer justify-center rounded">
-          <button className="flex items-center justify-center" onClick={handleConfirmed}>
-            Confirmar
-          </button>
+        <div className="flex gap-4">
+          <div className="flex bg-emerald-500 hover:bg-emerald-400 p-4 rounded">
+            <button
+              className="flex items-center justify-center"
+              onClick={handleConfirmed}
+            >
+              Confirmar
+            </button>
+          </div>
+          <div className="flex bg-blue-500 hover:bg-red-400 p-4 rounded">
+            <button className="flex items-center justify-center">
+              Reenviar Codigo
+            </button>
+          </div>
         </div>
       </div>
     );
