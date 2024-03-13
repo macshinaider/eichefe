@@ -81,14 +81,14 @@ const Cadastro = () => {
   }
 
   return (
-    <div className="flex flex-col md:flex-row md:justify-between w-screen gap-4 bg-zinc-950 text-zinc-300 items-center justify-center p-4">
-      <div>Alter Cod</div>
-      <div className="container">
+    <div className="flex flex-col md:flex-row md:justify-between w-screen gap-2 bg-zinc-950 text-zinc-300 items-center justify-center p-2">
+      {/* <div>Alter Cod</div> */}
+      <div className="">
         <form
           onSubmit={handleSubmit(HandleSubmit)}
           className="flex flex-col gap-4 w-full max-w-xs"
         >
-          <div className="flex gap-3">
+          <div className="flex flex-col md:flex-row gap-3">
             <div className="flex flex-col gap-1">
               <label htmlFor="name">Nome:</label>
               <input
@@ -109,7 +109,7 @@ const Cadastro = () => {
               {errors.email && <p>{errors.email.message}</p>}
             </div>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-col md:flex-row gap-3">
             <div className="flex flex-col gap-1 relative">
               <label htmlFor="password">Senha:</label>
               <input
