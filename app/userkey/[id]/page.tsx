@@ -99,7 +99,7 @@ export default function UserKey({ params }: { params: { id: number } }) {
           ))}
         </div>
         <div className="flex gap-4">
-          <div className="flex bg-emerald-500 hover:bg-emerald-400 p-4 rounded">
+          <div className="flex bg-emerald-500 hover:bg-emerald-400 p-4 rounded cursor-pointer">
             <button
               className="flex items-center justify-center"
               onClick={handleConfirmed}
@@ -107,7 +107,7 @@ export default function UserKey({ params }: { params: { id: number } }) {
               Confirmar
             </button>
           </div>
-          <div className="flex bg-blue-500 hover:bg-red-400 p-4 rounded">
+          <div className="flex bg-blue-500 hover:bg-red-400 p-4 rounded cursor-pointer">
             <button className="flex items-center justify-center">
               Reenviar Codigo
             </button>
