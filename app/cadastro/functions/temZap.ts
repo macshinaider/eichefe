@@ -12,7 +12,7 @@ export async function TemZap(whats: string) {
       body: JSON.stringify(data),
     };
     const verificar = await fetch(
-      `http://localhost:8080/chat/whatsappNumbers/eichefe`,
+      `https://apizap.eichef.online/chat/whatsappNumbers/eichefe`,
       options
     );
 

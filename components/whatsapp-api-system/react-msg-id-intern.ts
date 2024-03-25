@@ -1,5 +1,8 @@
 import axios from "axios";
 
+
+const url = process.env.NEXT_PUBLIC_URL_APIZAP;
+
 export async function ReactionMsgIdIntern(
   remoteJid: string,
   idmsg: string,
@@ -19,7 +22,7 @@ export async function ReactionMsgIdIntern(
   let config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: "http://localhost:8080/message/sendReaction/eichefe",
+    url: `${url}/message/sendReaction/eichefe`,
     headers: {
       "Content-Type": "application/json",
       apikey: "euamojesus102030",

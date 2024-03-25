@@ -55,7 +55,7 @@ const SideBarDashboard = () => {
                   Gerenciar Garcons
                 </span>
               </Link>
-              <Link href="/plans">
+              <Link href="/dashboard/whatsapp">
                 <span className="py-4 text-2xl font-bold md:text-xl">
                   Gerenciar WhatsApp
                 </span>
@@ -87,7 +87,7 @@ const SideBarDashboard = () => {
               <Link href="/teste">
                 <PiNotepad size={28} />
               </Link>
-              <Link href="/teste">
+              <Link href="/whatsapp">
                 <BsWhatsapp  size={28} />
               </Link>
             </nav>

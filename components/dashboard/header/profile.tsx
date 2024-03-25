@@ -26,7 +26,7 @@ export function DropdownMenuDemo() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 bg-slate-300 text-black">
-        <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
+        <DropdownMenuLabel className="hover:bg-zinc">Minha Conta</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>Meu Perfil</DropdownMenuItem>
