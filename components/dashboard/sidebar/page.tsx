@@ -10,7 +10,7 @@ import { PiNotepad } from "react-icons/pi";
 import { BsWhatsapp } from "react-icons/bs";
 
 const SideBarDashboard = () => {
-  const [menuisopen, setMenuisopen] = useState<boolean>(true);
+  const [menuisopen, setMenuisopen] = useState<boolean>(false)
 
   function MenuOpen() {
     setMenuisopen(!menuisopen);
@@ -87,7 +87,7 @@ const SideBarDashboard = () => {
               <Link href="/teste">
                 <PiNotepad size={28} />
               </Link>
-              <Link href="/whatsapp">
+              <Link href="/whatsapp">                
                 <BsWhatsapp  size={28} />
               </Link>
             </nav>
@@ -98,5 +98,6 @@ const SideBarDashboard = () => {
     </div>
   );
 };
+
 
 export default SideBarDashboard;
