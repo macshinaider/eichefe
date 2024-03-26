@@ -10,7 +10,7 @@ import { PiNotepad } from "react-icons/pi";
 import { BsWhatsapp } from "react-icons/bs";
 
 const SideBarDashboard = () => {
-  const [menuisopen, setMenuisopen] = useState<boolean>(false)
+  const [menuisopen, setMenuisopen] = useState<boolean>(false);
 
   function MenuOpen() {
     setMenuisopen(!menuisopen);
@@ -30,7 +30,7 @@ const SideBarDashboard = () => {
               <FaArrowLeft
                 size={28}
                 onClick={MenuOpen}
-                className="cursor-pointer"
+                className="cursor-pointer hover:text-orange-500"
               />
             </div>
 
@@ -70,28 +70,27 @@ const SideBarDashboard = () => {
               <FaArrowRight
                 size={28}
                 onClick={MenuOpen}
-                className="cursor-pointer"
+                className="cursor-pointer hover:text-orange-500"
               />
-              
             </div>
 
             <nav className="flex flex-col gap-4">
-              <Link href="/teste">
-                <div>
-                <FaProductHunt size={28} className=""/>
-                </div>                
+              <Link href="/teste" className="">
+                <div className="">
+                  <FaProductHunt size={28} className="hover:text-orange-500" />
+                </div>
               </Link>
               <Link href="/teste">
-                <MdOutlineTableRestaurant size={28} />
+                <MdOutlineTableRestaurant size={28} className="hover:text-orange-500"/>
               </Link>
               <Link href="/teste">
-                <TbToolsKitchen2 size={28} />
+                <TbToolsKitchen2 size={28} className="hover:text-orange-500"/>
               </Link>
               <Link href="/teste">
-                <PiNotepad size={28} />
+                <PiNotepad size={28} className="hover:text-orange-500"/>
               </Link>
-              <Link href="/whatsapp">                
-                <BsWhatsapp  size={28} />
+              <Link href="/dashboard/whatsapp">
+                <BsWhatsapp size={28} className="hover:text-orange-500"/>
               </Link>
             </nav>
             <h1>teste</h1>
@@ -101,6 +100,5 @@ const SideBarDashboard = () => {
     </div>
   );
 };
-
 
 export default SideBarDashboard;

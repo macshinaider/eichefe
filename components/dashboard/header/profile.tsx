@@ -17,7 +17,7 @@ import { useAuth } from "@/context/AuthContext";
 import { IoMdArrowDropdown } from "react-icons/io";
 
 export function DropdownMenuDemo() {
-    const { isAuthenticated, authenticateUser, setLoggout } = useAuth();
+  const { isAuthenticated, authenticateUser, setLoggout } = useAuth();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -26,19 +26,31 @@ export function DropdownMenuDemo() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 bg-slate-300 text-black">
-        <DropdownMenuLabel className="hover:bg-zinc">Minha Conta</DropdownMenuLabel>
+        <DropdownMenuLabel className="hover:bg-zinc cursor-pointer hover:bg-orange-500">
+          Minha Conta
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>Meu Perfil</DropdownMenuItem>
-          <DropdownMenuItem>Planos</DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer hover:bg-orange-500">
+            Meu Perfil
+          </DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer hover:bg-orange-500">
+            Planos
+          </DropdownMenuItem>
 
-          <DropdownMenuItem>Configurações</DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer hover:bg-orange-500">
+            Configurações
+          </DropdownMenuItem>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />        
-        <DropdownMenuItem>Suporte</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem className="cursor-pointer hover:bg-orange-500">
+          Suporte
+        </DropdownMenuItem>
 
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={setLoggout} className="hover:bg-red-600">Sair</DropdownMenuItem>
+        <DropdownMenuItem onClick={setLoggout} className="hover:bg-red-600">
+          Sair
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
