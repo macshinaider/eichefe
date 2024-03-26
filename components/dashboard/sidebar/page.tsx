@@ -72,11 +72,14 @@ const SideBarDashboard = () => {
                 onClick={MenuOpen}
                 className="cursor-pointer"
               />
+              
             </div>
 
             <nav className="flex flex-col gap-4">
               <Link href="/teste">
-                <FaProductHunt size={28} />
+                <div>
+                <FaProductHunt size={28} className=""/>
+                </div>                
               </Link>
               <Link href="/teste">
                 <MdOutlineTableRestaurant size={28} />

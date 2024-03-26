@@ -46,7 +46,7 @@ const Login = () => {
       const res = await SinginF(data);
       console.log(res);
       if (res) {
-        toast.success("Usuário criado com sucesso!");
+        toast.success("Login Efetuado com Sucesso !");
         setTimeout(async () => {
           Cookie.set("token", res.token)
           const iduser = await UserFindId(data.email)         
